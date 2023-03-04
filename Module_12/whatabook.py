@@ -2,7 +2,6 @@
 # CYBR410-T303
 # Module 12 What-A-Book Submission
 
-""" THIS IS IN DRAFT STAGE, I STILL NEED TO WORK ON THE VALIDATION FOR INPUTS AS THE PROGRAM ERRORS OUT WHEN ALPHA CHARACTERS ARE ENTERED."""
 
 # IMPORT STATEMENTS HERE
 from errno import errorcode
@@ -19,26 +18,21 @@ config = {
     "raise_on_warnings": True
 }
 
-# CONNECT TO THE DATABASE
+# TRY/EXCEPT BLOCK FOR DATABASE CONNECTION
 
-db = mysql.connector.connect(**config)
-
-# DEBUG CODE USED FOR DATABASE ACCESS ERRORS / TESTING
-"""
-    print("\n Database user {} connected to MySQL on host {} with database {}".format(config["user"], config["host"], config["database"]))
-
-    input("\n\n Press any key to continue...")
+try:
+    db = mysql.connector.connect(**config)
 
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Invalid Username or Password")
+        print("   The supplied username or password are invalid")
 
     elif err.errno == errorcode.BAD_DB_ERROR:
-        print("The selected database does not exist")
+        print("   The specified database does not exist")
 
     else:
         print(err)
-"""
+
 
 
 # DISPLAY THE MAIN MENU
